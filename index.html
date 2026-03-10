@@ -55,24 +55,37 @@
     <div class="container">
 
         <section id="dashboard" class="content-section active">
-            <h2>👋 Вітаємо! Огляд результатів</h2>
+            <div class="section-header">
+                <div>
+                    <h2>Огляд результатів</h2>
+                    <p class="section-subtitle">Ваш бізнес у реальному часі</p>
+                </div>
+                <button class="btn-secondary btn-sm" onclick="updateDashboard()">
+                    <i class="fa-solid fa-rotate"></i> Оновити
+                </button>
+            </div>
+
             <div class="stats-grid">
-                <div class="stat-card" style="background: linear-gradient(135deg, #10b981, #059669);">
-                    <h3>Виручка (Сьогодні)</h3>
+                <div class="stat-card stat-green">
+                    <div class="stat-icon"><i class="fa-solid fa-sun"></i></div>
+                    <div class="stat-label">Виручка сьогodні</div>
                     <div class="value" id="dash-today-revenue">0 ₴</div>
                 </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #7c3aed, #6d28d9);">
-                    <h3>Виручка (Цей місяць)</h3>
+                <div class="stat-card stat-violet">
+                    <div class="stat-icon"><i class="fa-solid fa-calendar-day"></i></div>
+                    <div class="stat-label">Виручка за місяць</div>
                     <div class="value" id="dash-month-revenue">0 ₴</div>
                 </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #F59E0B, #D97706);">
-                    <h3>Замовлень (Місяць)</h3>
+                <div class="stat-card stat-amber">
+                    <div class="stat-icon"><i class="fa-solid fa-basket-shopping"></i></div>
+                    <div class="stat-label">Замовлень за місяць</div>
                     <div class="value" id="dash-month-orders">0</div>
                 </div>
-                <div class="stat-card danger" id="dash-low-stock-count"
+                <div class="stat-card stat-red" id="dash-low-stock-count"
                     onclick="document.getElementById('inventorySearchInput').focus(); showSection('admin-panel', document.querySelectorAll('.nav-btn')[6]);"
                     style="cursor: pointer;" title="Перейти до складу">
-                    <h3>Залишок ≤ 15 мл</h3>
+                    <div class="stat-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <div class="stat-label">Критичний залишок (≤15 мл)</div>
                     <div class="value" id="dash-low-stock-count-value">0</div>
                 </div>
             </div>
@@ -80,11 +93,17 @@
             <!-- CHARTS SECTION -->
             <div class="grid-2-col" style="margin-bottom: 20px;">
                 <div class="card">
-                    <h3>📈 Динаміка продажів (30 днів)</h3>
+                    <div class="chart-card-title">
+                        <div class="chart-icon"><i class="fa-solid fa-chart-line"></i></div>
+                        <span>Динаміка продажів (30 днів)</span>
+                    </div>
                     <canvas id="salesChart"></canvas>
                 </div>
                 <div class="card">
-                    <h3>🏆 Популярні аромати</h3>
+                    <div class="chart-card-title">
+                        <div class="chart-icon"><i class="fa-solid fa-trophy"></i></div>
+                        <span>Популярні аромати</span>
+                    </div>
                     <canvas id="topProductsChart"></canvas>
                 </div>
             </div>
@@ -92,17 +111,33 @@
             <!-- NEW ANALYTICS CHARTS -->
             <div class="grid-2-col" style="margin-bottom: 20px;">
                 <div class="card">
-                    <h3>💰 Прибуток по місяцях (6 місяців)</h3>
+                    <div class="chart-card-title">
+                        <div class="chart-icon" style="background:rgba(16,185,129,0.12);color:var(--success)"><i
+                                class="fa-solid fa-coins"></i></div>
+                        <span>Прибуток по місяцях (6 місяців)</span>
+                    </div>
                     <canvas id="monthlyProfitChart"></canvas>
                 </div>
                 <div class="card">
-                    <h3>📊 Джерела продажів</h3>
+                    <div class="chart-card-title">
+                        <div class="chart-icon" style="background:rgba(245,158,11,0.12);color:var(--secondary)"><i
+                                class="fa-solid fa-chart-pie"></i></div>
+                        <span>Джерела продажів</span>
+                    </div>
                     <canvas id="sourcesChart"></canvas>
                 </div>
             </div>
 
             <div class="card">
-                <h3><i class="fa-solid fa-trophy"></i> Топ-5 Популярних Ароматів (за об'ємом)</h3>
+                <div class="card-header">
+                    <div class="card-header-icon" style="background:rgba(245,158,11,0.12);color:var(--secondary)">
+                        <i class="fa-solid fa-trophy"></i>
+                    </div>
+                    <div>
+                        <h3>Топ-5 популярних ароматів</h3>
+                        <div class="card-header-sub">за об'ємом продажів</div>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table id="top-products-table">
                         <thead>
@@ -119,7 +154,7 @@
             </div>
             <div class="card">
                 <h3><i class="fa-solid fa-bolt"></i> Швидкі дії</h3>
-                <div class="grid-2-col">
+                <div class="btn-group">
                     <button class="btn-primary"
                         onclick="showSection('multi-calculator', document.querySelectorAll('.nav-btn')[1])"><i
                             class="fa-solid fa-plus"></i> Нове Замовлення</button>
@@ -132,7 +167,12 @@
 
         <section id="tasks" class="content-section">
             <div class="card">
-                <h2><i class="fa-solid fa-list-check"></i> Керування Задачами</h2>
+                <div class="section-header">
+                    <div>
+                        <h2><i class="fa-solid fa-list-check"></i> Керування Задачами</h2>
+                        <p class="section-subtitle">Замовлення та ручні задачі</p>
+                    </div>
+                </div>
 
                 <div class="task-tabs">
                     <div class="task-tab active" onclick="switchTaskTab('orders')" id="tab-orders">
@@ -176,7 +216,12 @@
 
         <section id="multi-calculator" class="content-section">
             <div class="card">
-                <h2><i class="fa-solid fa-basket-shopping"></i> Кошик Замовлення</h2>
+                <div class="section-header">
+                    <div>
+                        <h2><i class="fa-solid fa-basket-shopping"></i> Кошик Замовлення</h2>
+                        <p class="section-subtitle">Додайте позиції та оформіть замовлення</p>
+                    </div>
+                </div>
                 <div class="grid-3-col" style="margin-bottom: 15px;">
                     <div><label>Націнка</label><select id="saleMarkupTierOrder"></select></div>
                     <div><label>Джерело</label><select id="saleSourceOrder"></select></div>
@@ -267,7 +312,7 @@
                 <label>Номер ТТН (опційно)</label>
                 <input type="text" id="ttnNumberOrder" placeholder="Номер ТТН" style="margin-bottom: 20px;">
 
-                <div class="grid-2-col" style="margin-top: 20px;">
+                <div class="btn-group" style="margin-top: 20px;">
                     <button class="btn-success" onclick="processOrder()" id="processOrderBtn"><i
                             class="fa-solid fa-cash-register"></i> Оформити</button>
                     <button class="btn-danger" onclick="clearOrder()"><i class="fa-solid fa-trash"></i>
@@ -291,7 +336,12 @@
 
         <section id="transactions" class="content-section">
             <div class="card">
-                <h2><i class="fa-solid fa-history"></i> Історія Продажів</h2>
+                <div class="section-header">
+                    <div>
+                        <h2><i class="fa-solid fa-history"></i> Історія Продажів</h2>
+                        <p class="section-subtitle">Усі ваші відвантажені операції</p>
+                    </div>
+                </div>
 
                 <!-- Week Navigation -->
                 <div class="week-navigation">
@@ -363,11 +413,11 @@
             </div>
 
             <!-- Analytics Actions -->
-            <div class="grid-2-col" style="margin-top: 20px;">
-                <button class="btn-success" onclick="exportToExcel()" style="width: 100%;">
+            <div class="btn-group" style="margin-top: 20px;">
+                <button class="btn-success" onclick="exportToExcel()">
                     <i class="fa-solid fa-file-excel"></i> Експорт у Excel
                 </button>
-                <button class="btn-primary" onclick="forecastRevenue()" style="width: 100%;">
+                <button class="btn-primary" onclick="forecastRevenue()">
                     <i class="fa-solid fa-chart-line"></i> Прогноз виручки (AI)
                 </button>
             </div>
@@ -376,7 +426,7 @@
 
 
         <section id="admin-panel" class="content-section">
-            <div class="grid-2-col" style="margin-bottom: 20px;">
+            <div class="btn-group" style="margin-bottom: 20px;">
                 <button class="btn-primary" onclick="showSection('report', null)">📊 Фінансові звіти</button>
                 <button class="btn-primary" onclick="showSection('client-crm', null)">👥 База клієнтів (CRM)</button>
                 <button class="btn-primary" onclick="showSection('expenses', null)">💸 Додати Витрату</button>
@@ -834,7 +884,7 @@
         <div class="modal-content">
             <div class="modal-header no-print">
                 <h3 style="margin:0;">Чек-ордер</h3>
-                <button class="btn-sm" style="width:auto" onclick="closeReceiptModal()">✕</button>
+                <button class="close-modal" onclick="closeReceiptModal()">✕</button>
             </div>
             <div class="modal-body" id="receiptContent"></div>
         </div>
@@ -844,7 +894,7 @@
         <div class="modal-content">
             <div class="modal-header no-print">
                 <h3 style="margin:0;">Синхронізація Даних</h3>
-                <button class="btn-sm" style="width:auto" onclick="closeSyncModal()">✕</button>
+                <button class="close-modal" onclick="closeSyncModal()">✕</button>
             </div>
             <div class="modal-body">
                 <p>Скопіюйте цей текст для відновлення на іншому пристрої.</p>
@@ -867,7 +917,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3>⚙️ Налаштування</h3>
-                <button onclick="closeSettingsModal()" class="btn-sm btn-danger">X</button>
+                <button class="close-modal" onclick="closeSettingsModal()">✕</button>
             </div>
             <div class="modal-body">
                 <label>🔑 Gemini API Key:</label>
@@ -994,7 +1044,17 @@
     <datalist id="perfumeList"></datalist>
     <datalist id="clientList"></datalist>
 
-    <script src="app.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/inventory.js"></script>
+    <script src="js/orders.js"></script>
+    <script src="js/tasks.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/ai.js"></script>
+    <script src="js/sync.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
     <script src="telegram.js"></script>
 
 
